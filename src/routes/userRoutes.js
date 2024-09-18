@@ -111,4 +111,40 @@ router.post('/register', UserContainer().register);
  */
 router.put('/:userId', UserContainer().update);
 
+/**
+ * @swagger
+ * /users/{userId}:
+ *   delete:
+ *     tags: [Users]
+ *     summary: Eliminar un usuario
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         description: ID del usuario a eliminar
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Usuario eliminado exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Usuario eliminado correctamente"
+ *       400:
+ *         description: Error al eliminar el usuario
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Error al eliminar el usuario"
+ */
+router.delete('/:userId', UserContainer().deleted);
 module.exports = router;

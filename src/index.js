@@ -5,7 +5,6 @@ const swaggerUi = require('swagger-ui-express');
 const connectDB = require('./infrastructure/database/dbRepository');
 const userRoutes = require('./routes/userRoutes');
 
-const swaggerComponents = require('./swagger/user/components');
 const app = express();
 const PORT = 3000;
 app.use(express.json());
@@ -27,9 +26,8 @@ const swaggerOptions = {
         },
       ],
     },
-    ...swaggerComponents,
   },
-  apis: ['./src/routes/*.js'], 
+  apis: ['./src/routes/*.js'],
 
 };
 

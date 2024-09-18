@@ -3,7 +3,7 @@ const UserRepository = require("../../../domain/repositories/Users/userRepositor
 const UserModel = require('../../database/users/dbuserRepository')
 const User = require('../../../domain/entities/User')
 
-const { ERROR_MESSAGES, SUCCESS_MESSAGES } = require('../../constants');
+const { ERROR_MESSAGES, SUCCESS_MESSAGES, STATES } = require('../../constants');
 class userDataLayer extends UserRepository {
 
   async findById(id) {
@@ -33,7 +33,10 @@ class userDataLayer extends UserRepository {
   }
 
   async createUser(userData) {
-    const user = new UserModel(userData);
+    const user = new UserModel({
+      ...userData,
+      State: STATES.ACTIVE
+    });
     return await user.save();
   }
 
@@ -62,9 +65,27 @@ class userDataLayer extends UserRepository {
     } catch (error) {
       return { success: false, message: error.message };
     }
-
   }
+  async deleted(userId) {
+    const updateResult = await UserModel.updateOne({ _id: userId }, {
+      $set: {
+        State: STATES.INACTIVE,
+      }
+    });
 
+    if (updateResult.matchedCount === 0) {
+      return { success: false, message: ERROR_MESSAGES.NOT_FOUND };
+    }
+
+    if (updateResult.modifiedCount > 0) {
+      return { success: true, message: SUCCESS_MESSAGES.SUCCESS };
+    }
+
+    return { success: true, message: SUCCESS_MESSAGES.NO_CHANGES };
+  } catch(error) {
+    return { success: false, message: error.message };
+  }
 }
+
 
 module.exports = userDataLayer;

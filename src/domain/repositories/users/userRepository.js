@@ -11,6 +11,9 @@ class UserRepository {
   async update(userId, updatedData) {
     throw new Error('Método no implementado');
   }
+  async deleted(userId) {
+    throw new Error('Método no implementado');
+  }
 }
 
 module.exports = UserRepository;

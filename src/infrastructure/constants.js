@@ -1,3 +1,4 @@
+
 module.exports = {
     ERROR_MESSAGES: {
         NOT_FOUND: 'Objeto no encontrado',
@@ -6,5 +7,9 @@ module.exports = {
     SUCCESS_MESSAGES: {
         SUCCESS: 'Actualización exitosa',
         NO_CHANGES: 'No se realizaron cambios, los datos ya son los mismos'
+    },
+    STATES:{
+        ACTIVE:'Active',
+        INACTIVE:'Inactive'
     }
 };
