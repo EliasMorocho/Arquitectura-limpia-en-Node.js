@@ -3,13 +3,12 @@ const express = require('express');
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 const connectDB = require('./infrastructure/database/dbRepository');
-const authController = require('./interfaces/controllers/users/authController');
-const registerController = require('./interfaces/controllers/users/registerController');
+const userRoutes = require('./routes/userRoutes');
 
+const swaggerComponents = require('./swagger/user/components');
 const app = express();
 const PORT = 3000;
-
-
+app.use(express.json());
 const swaggerOptions = {
   swaggerDefinition: {
     openapi: '3.0.0',
@@ -28,22 +27,19 @@ const swaggerOptions = {
         },
       ],
     },
+    ...swaggerComponents,
   },
-  apis: ['./src/interfaces/controllers/users/*.js'], 
+  apis: ['./src/routes/*.js'], 
+
 };
 
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
-
-
 app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-
-app.use(express.json());
-app.post('/login',  authController.login);
-app.post('/register', registerController.register);
 
 connectDB().then(() => {
   app.listen(PORT, () => {
+    app.use('/users', userRoutes);
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
   });
 }).catch((err) => {

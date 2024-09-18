@@ -1,12 +1,16 @@
 class UserRepository {
-    async findByUsername(email) {
-      throw new Error('Método no implementado');
-    }
-    async createUser(userData) {
-      const user = new UserModel(userData);
-      return await user.save();
-    }
+  async findById(id) {
+    throw new Error('Método no implementado');
   }
-  
-  module.exports = UserRepository;
-  
+  async findByUsername(email) {
+    throw new Error('Método no implementado');
+  }
+  async createUser(userData) {
+    throw new Error('Método no implementado');
+  }
+  async update(userId, updatedData) {
+    throw new Error('Método no implementado');
+  }
+}
+
+module.exports = UserRepository;
