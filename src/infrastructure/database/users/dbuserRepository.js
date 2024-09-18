@@ -1,17 +1,12 @@
-// src/infrastructure/db/mongooseConnection.js
 const mongoose = require('mongoose');
 
-const connectDB = async () => {
-  try {
-    await mongoose.connect('mongodb://localhost:27017/Morocho', {
-    });
-    console.log('Conectado a MongoDB');
-  } catch (error) {
-    console.error('Error al conectar a MongoDB:', error);
-    throw error;
-  }
-};
+const userSchema = new mongoose.Schema({
+  Email: { type: String, required: true },
+  Name: { type: String, required: true },
+  Password: { type: String, required: true },
+  Role: { type: String, required: true },
+});
 
-module.exports = connectDB;
+const UserModel = mongoose.model('Users', userSchema, 'Users');
 
-
+module.exports = UserModel;

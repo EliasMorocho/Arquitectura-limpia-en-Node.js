@@ -1,7 +1,9 @@
+// src/domain/models/User.js
 class User {
-  constructor({ username, password }) {
-    this.username = username;
-    this.password = password;
+  constructor({ Email, Name, Password }) {
+    this.Email = Email;
+    this.Name = Name;
+    this.Password = Password;
   }
 }
 

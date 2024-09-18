@@ -2,8 +2,9 @@
 const express = require('express');
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
-const connectDB = require('./infrastructure/database/users/dbuserRepository');
+const connectDB = require('./infrastructure/database/dbRepository');
 const authController = require('./interfaces/controllers/users/authController');
+const registerController = require('./interfaces/controllers/users/registerController');
 
 const app = express();
 const PORT = 3000;
@@ -35,13 +36,11 @@ const swaggerOptions = {
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 
-app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use(express.json());
-
-console.log(authController)
-app.post('/login', authController.login);
-
+app.post('/login',  authController.login);
+app.post('/register', registerController.register);
 
 connectDB().then(() => {
   app.listen(PORT, () => {
