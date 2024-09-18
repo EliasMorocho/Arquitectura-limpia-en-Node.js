@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const connectDB = async () => {
+const MongoAccess = async () => {
   try {
     await mongoose.connect('mongodb://localhost:27017/Morocho', {
     });
@@ -11,6 +11,6 @@ const connectDB = async () => {
   }
 };
 
-module.exports = connectDB;
+module.exports = MongoAccess;
 
 

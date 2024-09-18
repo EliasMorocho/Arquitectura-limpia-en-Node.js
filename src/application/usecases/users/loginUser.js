@@ -11,7 +11,7 @@ class LoginUser {
       throw new Error('Usuario no encontrado');
     }
 
-    const isPasswordValid =  await bcrypt.compare(password, user.Password);
+    const isPasswordValid = await bcrypt.compare(password, user.Password);
     if (!isPasswordValid) {
       throw new Error('Contraseña incorrecta');
     }

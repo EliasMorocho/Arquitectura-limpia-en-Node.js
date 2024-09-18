@@ -1,13 +1,13 @@
 
-const MongoUserRepository = require('../../../infrastructure/repositories/users/userDataLayer');
+const UserMongoDataLayer = require('../../../infrastructure/repositories/users/userMongoDataLayer');
 const LoginUser = require('../../../application/usecases/users/loginUser');
 
 
-const login = async (req, res) => {
+const loginController = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const userRepository = new MongoUserRepository();
-    const loginUser = new LoginUser(userRepository);
+    const userMongoDataLayer = new UserMongoDataLayer();
+    const loginUser = new LoginUser(userMongoDataLayer);
     const result = await loginUser.execute(email, password);
     res.status(200).json(result);
   } catch (error) {
@@ -16,5 +16,5 @@ const login = async (req, res) => {
 };
 
 module.exports = {
-  login,
+  loginController,
 };

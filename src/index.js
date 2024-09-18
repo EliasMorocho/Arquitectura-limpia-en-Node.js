@@ -2,7 +2,7 @@
 const express = require('express');
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
-const connectDB = require('./infrastructure/database/dbRepository');
+const MongoAccess = require('./infrastructure/database/mongoAccess');
 const userRoutes = require('./routes/userRoutes');
 
 const app = express();
@@ -35,7 +35,7 @@ const swaggerOptions = {
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-connectDB().then(() => {
+MongoAccess().then(() => {
   app.listen(PORT, () => {
     app.use('/users', userRoutes);
     console.log(`Servidor corriendo en http://localhost:${PORT}`);

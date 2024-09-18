@@ -12,8 +12,8 @@ class UpdateUser {
     if (!existingUser) {
       throw new Error('User not found');
     }
-    const updatedUser = await this.userRepository.updateUser(userId, dto);
-    return updatedUser;
+    const result = await this.userRepository.updateUser(userId, dto);
+    return result;
   }
 }
 

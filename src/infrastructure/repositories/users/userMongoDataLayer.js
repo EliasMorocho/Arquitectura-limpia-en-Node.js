@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const UserRepository = require("../../../domain/repositories/Users/userRepository");
-const UserModel = require('../../database/users/dbuserRepository')
+const UserModel = require('../../database/users/userModel')
 const User = require('../../../domain/entities/User')
 
 const { ERROR_MESSAGES, SUCCESS_MESSAGES, STATES } = require('../../constants');
-class userDataLayer extends UserRepository {
+class userMongoDataLayer extends UserRepository {
 
   async findById(id) {
     try {
@@ -88,4 +88,4 @@ class userDataLayer extends UserRepository {
 }
 
 
-module.exports = userDataLayer;
+module.exports = userMongoDataLayer;

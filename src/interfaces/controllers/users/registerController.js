@@ -1,13 +1,13 @@
-const MongoUserRepository = require('../../../infrastructure/repositories/users/userDataLayer');
+const UserMongoDataLayer = require('../../../infrastructure/repositories/users/userMongoDataLayer');
 const RegisterUser = require('../../../application/usecases/users/registerUser');
 
 
-const register = async (req, res) => {
+const registerController = async (req, res) => {
   const { email, name, password, role } = req.body;
 
   try {
-    const userRepository = new MongoUserRepository();
-    const registerUser = new RegisterUser(userRepository);
+    const userMongoDataLayer = new UserMongoDataLayer();
+    const registerUser = new RegisterUser(userMongoDataLayer);
     const result = await registerUser.execute({ Email: email, Name: name, Password: password, Role: role });
     res.status(201).json(result);
   } catch (error) {
@@ -16,5 +16,5 @@ const register = async (req, res) => {
 };
 
 module.exports = {
-  register,
+  registerController,
 };

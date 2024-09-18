@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const MongoUserRepository = require('../../../infrastructure/repositories/users/userDataLayer');
+const UserMongoDataLayer = require('../../../infrastructure/repositories/users/userMongoDataLayer');
 const UpdateUser = require('../../../application/usecases/users/updateUser');
 
 const schema = Joi.object({
@@ -17,7 +17,7 @@ const schema = Joi.object({
         })
 });
 
-const update = async (req, res) => {
+const updateController = async (req, res) => {
     const { userId } = req.params;
     const { name, role } = req.body;
 
@@ -27,8 +27,8 @@ const update = async (req, res) => {
     }
 
     try {
-        const userRepository = new MongoUserRepository();
-        const updateUser = new UpdateUser(userRepository);
+        const userMongoDataLayer = new UserMongoDataLayer();
+        const updateUser = new UpdateUser(userMongoDataLayer);
         const result = await updateUser.execute(userId, { Name: name, Role: role });
         res.status(200).json(result);
     } catch (error) {
@@ -37,5 +37,5 @@ const update = async (req, res) => {
 };
 
 module.exports = {
-    update,
+    updateController,
 };

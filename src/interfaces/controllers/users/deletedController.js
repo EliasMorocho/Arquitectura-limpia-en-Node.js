@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const MongoUserRepository = require('../../../infrastructure/repositories/users/userDataLayer');
+const UserMongoDataLayer = require('../../../infrastructure/repositories/users/userMongoDataLayer');
 const DeletedUser = require('../../../application/usecases/users/deletedUser');
 
 const schema = Joi.object({
@@ -9,7 +9,7 @@ const schema = Joi.object({
     }),
 });
 
-const deleted = async (req, res) => {
+const deletedController = async (req, res) => {
     const { userId } = req.params;
     const { error } = schema.validate({ userId });
     if (error) {
@@ -17,8 +17,8 @@ const deleted = async (req, res) => {
     }
 
     try {
-        const userRepository = new MongoUserRepository();
-        const deletedUser = new DeletedUser(userRepository);
+        const userMongoDataLayer = new UserMongoDataLayer();
+        const deletedUser = new DeletedUser(userMongoDataLayer);
         const result = await deletedUser.execute(userId);
         res.status(200).json({ message: 'Usuario eliminado correctamente', data: result, status: true });
     } catch (error) {
@@ -27,5 +27,5 @@ const deleted = async (req, res) => {
 };
 
 module.exports = {
-    deleted,
+    deletedController,
 };
