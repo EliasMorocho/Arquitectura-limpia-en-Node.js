@@ -3,6 +3,7 @@ const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 const MongoAccess = require('./src/infrastructure/database/mongoAccess');
 const userRoutes = require('./src/routes/userRoutes');
+const logger = require('./src/config/logger');
 require('dotenv').config();
 const app = express();
 const PORT = 3000;
@@ -53,9 +54,9 @@ app.use('/users', userRoutes);
 
 MongoAccess().then(() => {
   app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+    logger.info(`Servidor corriendo en http://localhost:${PORT}`);
   });
 }).catch((err) => {
-  console.error('Error al iniciar la aplicación:', err);
+  logger.error('Error al iniciar la aplicación:' + err);
 });
 
