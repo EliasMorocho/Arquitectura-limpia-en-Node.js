@@ -1,8 +1,8 @@
 const express = require('express');
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
-const MongoAccess = require('./infrastructure/database/mongoAccess');
-const userRoutes = require('./routes/userRoutes');
+const MongoAccess = require('./src/infrastructure/database/mongoAccess');
+const userRoutes = require('./src/routes/userRoutes');
 require('dotenv').config();
 const app = express();
 const PORT = 3000;
@@ -41,7 +41,7 @@ const swaggerOptions = {
       },
     ],
   },
-  apis: ['./routes/*.js'],
+  apis: ['./src/routes/*.js'],
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
