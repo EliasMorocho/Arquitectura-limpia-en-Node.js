@@ -1,5 +1,7 @@
 const express = require('express');
 const { UserContainer } = require('../interfaces/controllers/users/userContainer');
+const authenticateToken = require('../middleware/authenticateToken');
+
 const router = express.Router();
 
 /**
@@ -69,6 +71,8 @@ router.post('/register', UserContainer().register);
  *   put:
  *     tags: [Users]
  *     summary: Actualizar un usuario
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: userId
@@ -109,7 +113,8 @@ router.post('/register', UserContainer().register);
  *                   type: string
  *                   example: "Error al actualizar el usuario"
  */
-router.put('/:userId', UserContainer().update);
+
+router.put('/:userId', authenticateToken, UserContainer().update);
 
 /**
  * @swagger
@@ -117,6 +122,8 @@ router.put('/:userId', UserContainer().update);
  *   delete:
  *     tags: [Users]
  *     summary: Eliminar un usuario
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: userId
@@ -146,5 +153,5 @@ router.put('/:userId', UserContainer().update);
  *                   type: string
  *                   example: "Error al eliminar el usuario"
  */
-router.delete('/:userId', UserContainer().deleted);
+router.delete('/:userId', authenticateToken, UserContainer().deleted);
 module.exports = router;

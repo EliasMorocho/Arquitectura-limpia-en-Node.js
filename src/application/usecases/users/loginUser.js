@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-
+const generateAuthToken = require('./generateAuthToken');
 class LoginUser {
   constructor(userRepository) {
     this.userRepository = userRepository;
@@ -15,8 +15,8 @@ class LoginUser {
     if (!isPasswordValid) {
       throw new Error('Contraseña incorrecta');
     }
-
-    return { message: 'Login exitoso' };
+    const token = generateAuthToken(user);
+    return { message: 'Login exitoso', token };
   }
 }
 
